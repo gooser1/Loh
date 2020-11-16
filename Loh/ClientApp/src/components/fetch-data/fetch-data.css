@@ -1,0 +1,8 @@
+.card-item {
+  cursor: pointer;
+}
+
+.custom-warning {
+  text-decoration: underline;
+  color: tomato;
+}
