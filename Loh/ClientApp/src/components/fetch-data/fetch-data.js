@@ -1,9 +1,10 @@
 import React from "react"
-import { ApiService } from "../api-service"
+import mapCardToImgSrc from "../mappers/map-card-to-img-src"
+import { ApiService } from "../services/api-service"
 import "./fetch-data.css"
 
 export default class FetchData extends React.Component {
-  state = { cards: [], loading: true, sentCard: null, postAnswer: null }
+  state = { cards: [], loading: true, sentCard: null, listView: true }
 
   apiService = new ApiService()
 
@@ -23,6 +24,29 @@ export default class FetchData extends React.Component {
       this.setState({ sentCard: null })
       clearInterval(interval)
     }, 5000)
+  }
+
+  changeCardView = () => {
+    this.setState(({ listView }) => ({
+      listView: !listView,
+    }))
+  }
+
+  getImgItem = (card) => {
+    const cardValue = mapCardToImgSrc(card)
+    return (
+      <div className="card-item" key={card.description}>
+        <img
+          onClick={() => this.sendCard(card)}
+          src={cardValue}
+          alt={card.description}
+        ></img>
+      </div>
+    )
+  }
+
+  renderСardsField = (cards) => {
+    return <div className="card-field">{cards.map(this.getImgItem)}</div>
   }
 
   getTableItem = (card) => {
@@ -49,14 +73,16 @@ export default class FetchData extends React.Component {
   }
 
   render() {
-    const { loading, cards, sentCard } = this.state
+    const { loading, cards, sentCard, listView } = this.state
 
     const contents = loading ? (
       <p>
         <em>Loading...</em>
       </p>
-    ) : (
+    ) : listView ? (
       this.renderСardsTable(cards)
+    ) : (
+      this.renderСardsField(cards)
     )
 
     const sentCardDescription = sentCard ? (
@@ -66,8 +92,12 @@ export default class FetchData extends React.Component {
     return (
       <div>
         <h1 id="tabelLabel">Fetch Data</h1>
+        <button className="btn btn-secondary" onClick={this.changeCardView}>
+          Change cards view
+        </button>
         <span className="custom-warning">(click on card to post it)</span>
         {sentCardDescription}
+
         {contents}
       </div>
     )

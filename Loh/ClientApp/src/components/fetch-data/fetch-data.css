@@ -1,8 +1,14 @@
-.card-item {
+.card-item img {
   cursor: pointer;
+  width: 150px;
 }
 
 .custom-warning {
   text-decoration: underline;
   color: tomato;
+}
+
+.card-field {
+  display: flex;
+  flex-wrap: wrap;
 }
