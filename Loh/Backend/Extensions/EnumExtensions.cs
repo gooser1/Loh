@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 
-namespace Loh.Extensions
+namespace Loh.Backend.Extensions
 {
     public static class EnumExtensions
     {

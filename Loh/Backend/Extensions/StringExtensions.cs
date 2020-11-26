@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Loh.Extensions
+namespace Loh.Backend.Extensions
 {
     public static class StringExtensions
     {

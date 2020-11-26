@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Loh.Extensions;
+using Loh.Backend.Extensions;
+using Loh.Backend.Model.Dto;
+using Loh.Backend.Model.Enums;
 
-namespace Loh.Model
+namespace Loh.Backend.Model
 {
     public class Card
     {
@@ -51,6 +53,18 @@ namespace Loh.Model
         private void ThrowCardCtorException(string message)
         {
             throw new Exception($"Ошибка при создании карты! {message}");
+        }
+
+        public bool EqualToDto(CardDto cardDto)
+        {
+            return Suit == cardDto.Suit &&
+                   Rank == cardDto.Rank &&
+                   Type == cardDto.Type;
+        }
+
+        public override string ToString()
+        {
+            return Description;
         }
     }
 }

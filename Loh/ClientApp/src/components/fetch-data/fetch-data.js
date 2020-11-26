@@ -9,7 +9,7 @@ export default class FetchData extends React.Component {
   apiService = new ApiService()
 
   componentDidMount() {
-    this.apiService.getAllCards().then((data) => {
+    this.apiService.getHand().then((data) => {
       this.setState({ cards: data, loading: false })
     })
   }

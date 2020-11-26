@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Loh.Model
+namespace Loh.Backend.Model.Enums
 {
     public enum CardRank
     {

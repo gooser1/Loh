@@ -3,7 +3,7 @@ import { Route } from "react-router"
 import Counter from "./components/counter/counter"
 import FetchData from "./components/fetch-data/fetch-data"
 import Home from "./components/home/home"
-import { Layout } from "./components/layout"
+import { Layout } from "./components/Layout"
 
 import "./custom.css"
 
