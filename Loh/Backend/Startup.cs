@@ -1,8 +1,13 @@
 using System;
 using System.Net.WebSockets;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Loh.Backend.Extensions;
+using Loh.Backend.Model;
+using Loh.Backend.Model.Dto;
+using Loh.Backend.Model.Enums;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -118,10 +123,13 @@ namespace Loh.Backend
             WebSocketReceiveResult result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
             while (!result.CloseStatus.HasValue)
             {
-                var j = Encoding.UTF8.GetString(buffer).Replace("\0","");
-                var o = $"принял '{j}' и вернул обратно";
-                var n = Encoding.UTF8.GetBytes(o);
-                await webSocket.SendAsync(new ArraySegment<byte>(n, 0, n.Length), result.MessageType, result.EndOfMessage, CancellationToken.None);
+                var card = (new Card(CardRank.Nine, CardSuit.Diamonds)).ToDto();
+                var cardJson = JsonSerializer.Serialize(card);
+
+                var recievedMessage = Encoding.UTF8.GetString(buffer).Replace("\0","");
+                var messageForSend = $"принял '{recievedMessage}' а вернул '{cardJson}'";
+                var bytesForSend = Encoding.UTF8.GetBytes(messageForSend);
+                await webSocket.SendAsync(new ArraySegment<byte>(bytesForSend, 0, bytesForSend.Length), result.MessageType, result.EndOfMessage, CancellationToken.None);
 
                 result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
             }
