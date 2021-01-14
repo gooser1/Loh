@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from "react";
 import {
   Collapse,
   Container,
@@ -6,27 +6,27 @@ import {
   NavbarBrand,
   NavbarToggler,
   NavItem,
-  NavLink,
-} from "reactstrap"
-import { Link } from "react-router-dom"
-import "./NavMenu.css"
+  NavLink
+} from "reactstrap";
+import { Link } from "react-router-dom";
+import "./NavMenu.css";
 
 export class NavMenu extends Component {
-  static displayName = NavMenu.name
+  static displayName = NavMenu.name;
 
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.toggleNavbar = this.toggleNavbar.bind(this)
+    this.toggleNavbar = this.toggleNavbar.bind(this);
     this.state = {
-      collapsed: true,
-    }
+      collapsed: true
+    };
   }
 
   toggleNavbar() {
     this.setState({
-      collapsed: !this.state.collapsed,
-    })
+      collapsed: !this.state.collapsed
+    });
   }
 
   render() {
@@ -62,11 +62,20 @@ export class NavMenu extends Component {
                     Fetch data
                   </NavLink>
                 </NavItem>
+                <NavItem>
+                  <NavLink
+                    tag={Link}
+                    className="text-dark"
+                    to="/web-socket-sample"
+                  >
+                    WebSocket Connection Example Page
+                  </NavLink>
+                </NavItem>
               </ul>
             </Collapse>
           </Container>
         </Navbar>
       </header>
-    )
+    );
   }
 }
